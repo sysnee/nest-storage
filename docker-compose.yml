@@ -4,10 +4,10 @@ services:
   storage-bucket:
     build: .
     ports:
-      - "3000:3000"
+      - "5100:5100"
     volumes:
       - ./uploads:/app/uploads
     environment:
       - NODE_ENV=production
-      - PORT=3000
+      - PORT=5100
     restart: unless-stopped
