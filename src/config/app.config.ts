@@ -16,5 +16,6 @@ export default registerAs('app', () => ({
     'application/zip',
     'video/mp4',
     'audio/mpeg',
+    'application/rtf'
   ],
 }));
