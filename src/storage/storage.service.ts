@@ -131,7 +131,7 @@ export class StorageService {
     try {
       const data = await fs.readFile(metadataPath, 'utf-8');
       const files: FileMetadata[] = JSON.parse(data);
-      const file = files.find(f => f.id === fileId);
+      const file = files.find(f => f.id === fileId || f.filename === fileId);
       
       return file ?? null;
     } catch {
