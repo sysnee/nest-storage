@@ -72,7 +72,13 @@ export class StorageService {
 
   async getFile(fileId: string): Promise<{ buffer: Buffer; metadata: FileMetadata }> {
     const metadata = await this.getMetadata(fileId);
-    const filePath = join(this.uploadDir, metadata.filename);
+    let filePath = '';
+
+    if (!metadata) {
+      filePath = join(this.uploadDir, fileId);
+    } else {
+      filePath = join(this.uploadDir, metadata.filename);
+    }
 
     try {
       const buffer = await fs.readFile(filePath);
@@ -119,7 +125,7 @@ export class StorageService {
     }
   }
 
-  private async getMetadata(fileId: string): Promise<FileMetadata> {
+  private async getMetadata(fileId: string): Promise<FileMetadata | null> {
     const metadataPath = join(this.uploadDir, 'metadata.json');
     
     try {
@@ -127,13 +133,9 @@ export class StorageService {
       const files: FileMetadata[] = JSON.parse(data);
       const file = files.find(f => f.id === fileId);
       
-      if (!file) {
-        throw new NotFoundException('File not found');
-      }
-      
-      return file;
+      return file ?? null;
     } catch {
-      throw new NotFoundException('File not found');
+      return null;
     }
   }
 
