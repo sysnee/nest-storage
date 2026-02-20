@@ -40,9 +40,9 @@ export class StorageController {
     const { buffer, metadata } = await this.storageService.getFile(id);
     
     res.set({
-      'Content-Type': metadata.mimeType,
-      'Content-Length': metadata.size.toString(),
-      'Content-Disposition': `inline; filename="${metadata.originalName}"`,
+      'Content-Type': metadata?.mimeType || 'unknown',
+      'Content-Length': metadata?.size.toString() || '0',
+      'Content-Disposition': `inline; filename="${metadata?.originalName || 'Unknown File'}"`,
     });
     
     res.send(buffer);
