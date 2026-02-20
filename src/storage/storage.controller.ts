@@ -37,6 +37,7 @@ export class StorageController {
   @ApiResponse({ status: 200, description: 'File downloaded successfully' })
   @ApiResponse({ status: 404, description: 'File not found' })
   async getFile(@Param('id') id: string, @Res() res: Response): Promise<void> {
+    console.log('getFile | Param id: ', id);
     const { buffer, metadata } = await this.storageService.getFile(id);
     
     res.set({

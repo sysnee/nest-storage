@@ -73,7 +73,8 @@ export class StorageService {
   async getFile(fileId: string): Promise<{ buffer: Buffer; metadata: FileMetadata }> {
     const metadata = await this.getMetadata(fileId);
     let filePath = '';
-
+    
+    console.log('getFile | Metadata: ', metadata);
     if (!metadata) {
       filePath = join(this.uploadDir, fileId);
     } else {
