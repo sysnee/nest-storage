@@ -41,7 +41,7 @@ export class StorageController {
     const { buffer, metadata } = await this.storageService.getFile(id);
     
     res.set({
-      'Content-Type': metadata?.mimeType || 'unknown',
+      'Content-Type': metadata?.mimeType || 'application/octet-stream',
       'Content-Length': metadata?.size.toString() || '0',
       'Content-Disposition': `inline; filename="${metadata?.originalName || 'Unknown File'}"`,
     });
